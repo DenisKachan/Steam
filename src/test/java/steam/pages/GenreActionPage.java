@@ -15,7 +15,7 @@ public class GenreActionPage extends BaseSteamPage {
     private static String formLocator = "//div[contains(@class,'contenthubmain')]";
     private final String commonLocatorForGenreOffersCategory = "//div[contains(@class,'partnereventshared_SaleSectionHeader')][contains(text(),'%s')]";
     private final Label gameTitle = new Label(By.xpath("//div[contains(@class,'gamehover_Bottom')]/descendant::div[contains(@class,'gamehover_GameTitle')]"));
-    private final Label lblDiscounts = new Label(By.xpath("//div[@id='SaleSection_61186']/descendant::div[contains(@class,'salepreviewwidgets_StoreSaleDiscountBox')]"));
+    private final Label lblDiscounts = new Label(By.xpath("//div[@id='SaleSection_61186']/descendant::div[contains(@class,'salepreviewwidgets_StoreSaleDiscountBox')][contains(text(),'%')]"));
     private final Button btnMoveRight = new Button(By.xpath("//div[@id='SaleSection_61186']/descendant::button[contains(@class,'right')]"));
     public static String randomGameWithTheHighestDiscount;
 
@@ -29,6 +29,8 @@ public class GenreActionPage extends BaseSteamPage {
     }
 
     public void chooseGameWithHighestDiscount() {
+        btnMoveRight.click();
+        btnMoveRight.click();
         ArrayList<String> tempList = new ArrayList<>();
         List<WebElement> elementList= lblDiscounts.getListOfElements();
         for(WebElement optionElement : elementList)
