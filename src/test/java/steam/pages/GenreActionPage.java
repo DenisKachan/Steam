@@ -30,7 +30,6 @@ public class GenreActionPage extends BaseSteamPage {
 
     public void chooseGameWithHighestDiscount() {
         btnMoveRight.click();
-        btnMoveRight.click();
         ArrayList<String> tempList = new ArrayList<>();
         List<WebElement> elementList= lblDiscounts.getListOfElements();
         for(WebElement optionElement : elementList)
