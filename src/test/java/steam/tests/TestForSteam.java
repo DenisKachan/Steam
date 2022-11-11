@@ -6,11 +6,14 @@ import steam.pages.*;
 
 public class TestForSteam extends BaseTest {
 
-    @Override
     @Test
-    public void runTest() {
+    public void gameChoosingAndSteamInstallingTest() {
+        navigateToURL("baseUrl");
+
+        HeaderPage headerPage = new HeaderPage();
+        headerPage.chooseLanguage("English");
+
         BaseSteamPage baseSteamPage = new BaseSteamPage();
-        baseSteamPage.chooseLanguage("English");
         baseSteamPage.navigateMenu("menuItem","subMenuItem");
 
         GenreActionPage genreActionPage = new GenreActionPage();
@@ -23,7 +26,7 @@ public class TestForSteam extends BaseTest {
         GamePage gamePage = new GamePage();
         gamePage.checkingGameTitle();
 
-        baseSteamPage.clickInstallSteam();
+        headerPage.clickInstallSteam();
 
         DownloadSteamPage downloadSteamPage = new DownloadSteamPage();
         downloadSteamPage.downloadSteam();

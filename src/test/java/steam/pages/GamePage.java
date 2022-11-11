@@ -1,20 +1,20 @@
 package steam.pages;
 
+import framework.BasePage;
 import framework.baseElement.Label;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
-public class GamePage extends BaseSteamPage{
+public class GamePage extends BasePage {
 
-    private static String formLocator = "//div[@class='page_content_ctn']";
-    private final Label lblGameTitle = new Label(By.xpath("//div[@id='appHubAppName']"));
+    private static String pageLocator = "//div[@class='page_content_ctn']";
+    private Label lblGameTitle = new Label(By.xpath("//div[@id='appHubAppName']"),"Title of the Game");
 
     public GamePage() {
-        super(By.xpath(formLocator));
+        super(By.xpath(pageLocator),"GamePage");
     }
 
     public void checkingGameTitle(){
-        String gameTitle = lblGameTitle.getText();
-        Assert.assertEquals(gameTitle, GenreActionPage.randomGameWithTheHighestDiscount);
+        Assert.assertEquals(lblGameTitle.getText(), GenreActionPage.randomGameWithTheHighestDiscount,"Game Titles are not equal");
     }
 }

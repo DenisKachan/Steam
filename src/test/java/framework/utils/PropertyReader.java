@@ -1,10 +1,10 @@
 package framework.utils;
 
-import framework.BaseEntity;
+
 import java.io.IOException;
 import java.util.Properties;
 
-public class PropertyReader extends BaseEntity {
+public class PropertyReader {
 
     private final Properties properties;
 

@@ -1,22 +1,23 @@
 package framework;
 
 import framework.utils.PropertyReader;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Browser {
 
-    private static Browser instance;
-    private static WebDriver driver;
-    private static final PropertyReader configReader = new PropertyReader("config.properties");
-
-    private Browser() {
-    }
+    public static Browser instance;
+    public static WebDriver driver;
+    public static PropertyReader configReader = new PropertyReader("config.properties");
 
     public static Browser getInstance() {
         if (instance == null) {
-            driver = BrowserFactory.setUp(configReader.getProperty("browser"));
+            driver = DriverFactory.setUp();
             driver.manage().timeouts().implicitlyWait(Long.parseLong(configReader.getProperty("defaultWait")), TimeUnit.SECONDS);
             instance = new Browser();
         }
@@ -32,21 +33,30 @@ public class Browser {
         instance = null;
     }
 
-    public void navigateToURL(){
-        driver.get(configReader.getProperty("baseUrl"));
-    }
-
     public WebDriver getDriver(){
         return driver;
     }
 
-    public void switchToTheNextBrowserWindow(){
+    public void switchBrowserWindow(int a){
         ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
+        driver.switchTo().window(tabs.get(a));
     }
 
-    public void switchToThePreviousWindow(){
-        ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(0));
+
+    public void waitPageToLoad(){
+        WebDriverWait wait = new WebDriverWait(driver,Long.parseLong(configReader.getProperty("webDriverWait")));
+        try {
+            wait.until((ExpectedCondition<Boolean>) new ExpectedCondition<Boolean>(){
+                public Boolean apply(final WebDriver driver){
+                    if (!(driver instanceof JavascriptExecutor)){
+                        return true;
+                    }
+                    Object result = ((JavascriptExecutor) driver)
+                            .executeScript("return document['readyState'] ? 'complete' == document.readyState : true");
+                    return result instanceof Boolean && (Boolean) result;
+                }
+            });
+        } catch (Exception e) {
+        }
     }
 }
