@@ -3,7 +3,7 @@
 <suite name="Steam">
     <test name="all tests">
         <classes>
-            <class name="steam.tests.TestForSteam"/>
+            <class name="steam.tests.SteamTest"/>
         </classes>
     </test>
 </suite>

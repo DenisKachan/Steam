@@ -1,48 +1,41 @@
 package steam.pages;
 
-import framework.BasePage;
-import framework.Browser;
 import framework.baseElement.Button;
 import framework.baseElement.Dropdown;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
-public class AgeCheckingPage extends BasePage {
+@Log4j2
+public class AgeCheckingPage extends BaseSteamPage {
 
-    private Browser browser = new Browser();
-
-    private static String pageLocator = "//div[@class='logo']";
+    private static String pageLocator = "//select[@id='ageDay']";
     private String commonLocatorForConfirmAgeButton = "//a[@id='view_product_page_btn']/span[contains(text(),'%s')]";
-    private final Dropdown slcDay = new Dropdown(By.xpath("//select[@id='ageDay']"),"Day of birth dropdown");
-    private final Dropdown slcMonth = new Dropdown(By.xpath("//select[@id='ageMonth']"),"Month of birth dropdown");
-    private final Dropdown slcYear = new Dropdown(By.xpath("//select[@id='ageYear']"),"Year of birth dropdown");
+    private Dropdown slcDay = new Dropdown(By.xpath("//select[@id='ageDay']"), "Day of birth dropdown");
+    private Dropdown slcMonth = new Dropdown(By.xpath("//select[@id='ageMonth']"), "Month of birth dropdown");
+    private Dropdown slcYear = new Dropdown(By.xpath("//select[@id='ageYear']"), "Year of birth dropdown");
 
     public AgeCheckingPage() {
         super(By.xpath(pageLocator), "AgeCheckingPage");
     }
 
-    public void confirmAgeChecking(){
-        browser.switchBrowserWindow(1);
-        if (slcDay.elementIsPresent()){
-           setBirthDay();
-           setBirthMonth();
-           setBirthYear();
-           clickConfirmButton();}
+    public void setBirthDay() {
+        log.info("Set the day of birth");
+        slcDay.selectValueFromDropdown(Header.languageReader.getProperty("birthDay"));
     }
 
-    public void setBirthDay(){
-        slcDay.selectValueFromSelect(HeaderPage.languageReader.getProperty("birthDay"));
+    public void setBirthMonth() {
+        log.info("Set the month of birth");
+        slcMonth.selectValueFromDropdown(Header.languageReader.getProperty("birthMonth"));
     }
 
-    public void setBirthMonth(){
-        slcMonth.selectValueFromSelect(HeaderPage.languageReader.getProperty("birthMonth"));
+    public void setBirthYear() {
+        log.info("Set the year of birth");
+        slcYear.selectValueFromDropdown(Header.languageReader.getProperty("birthYear"));
     }
 
-    public void setBirthYear(){
-        slcYear.selectValueFromSelect(HeaderPage.languageReader.getProperty("birthYear"));
-    }
-
-    public void clickConfirmButton(){
-        Button btnConfirmAge = new Button(By.xpath(String.format(commonLocatorForConfirmAgeButton,HeaderPage.languageReader.getProperty("btnConfirmAge"))),"Confirm age button");
+    public void clickConfirmButton() {
+        log.info("Confirm age");
+        Button btnConfirmAge = new Button(By.xpath(String.format(commonLocatorForConfirmAgeButton, Header.languageReader.getProperty("btnConfirmAge"))), "Confirm age button");
         btnConfirmAge.clickAndWait();
     }
 }

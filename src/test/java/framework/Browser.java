@@ -1,6 +1,7 @@
 package framework;
 
 import framework.utils.PropertyReader;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+@Log4j2
 public class Browser {
 
     public static Browser instance;
@@ -24,39 +26,43 @@ public class Browser {
         return instance;
     }
 
-    public boolean isBrowserAlive(){
-        return instance !=null;
+    public boolean isBrowserAlive() {
+        return instance != null;
     }
 
-    public void exit(){
+    public void exit() {
+        log.info("Close {} driver", driver);
         driver.quit();
         instance = null;
     }
 
-    public WebDriver getDriver(){
+    public WebDriver getDriver() {
         return driver;
     }
 
-    public void switchBrowserWindow(int a){
-        ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+    public void switchBrowserWindow(int a) {
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        log.info("Switch to the {} window", a);
         driver.switchTo().window(tabs.get(a));
     }
 
-
-    public void waitPageToLoad(){
-        WebDriverWait wait = new WebDriverWait(driver,Long.parseLong(configReader.getProperty("webDriverWait")));
+    public void waitPageToLoad() {
+        WebDriverWait wait = new WebDriverWait(driver, Long.parseLong(configReader.getProperty("webDriverWait")));
         try {
-            wait.until((ExpectedCondition<Boolean>) new ExpectedCondition<Boolean>(){
-                public Boolean apply(final WebDriver driver){
-                    if (!(driver instanceof JavascriptExecutor)){
+            wait.until((ExpectedCondition<Boolean>) new ExpectedCondition<Boolean>() {
+                public Boolean apply(final WebDriver driver) {
+                    if (!(driver instanceof JavascriptExecutor)) {
                         return true;
                     }
+                    log.info("Wait to the page to be opened");
                     Object result = ((JavascriptExecutor) driver)
                             .executeScript("return document['readyState'] ? 'complete' == document.readyState : true");
                     return result instanceof Boolean && (Boolean) result;
                 }
             });
         } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Page is not loaded");
         }
     }
 }
