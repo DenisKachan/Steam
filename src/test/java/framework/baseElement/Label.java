@@ -7,5 +7,4 @@ public class Label extends BaseElement {
     public Label(By loc, String name) {
         super(loc, name);
     }
-
 }

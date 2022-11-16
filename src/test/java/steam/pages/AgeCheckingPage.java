@@ -2,10 +2,8 @@ package steam.pages;
 
 import framework.baseElement.Button;
 import framework.baseElement.Dropdown;
-import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
-@Log4j2
 public class AgeCheckingPage extends BaseSteamPage {
 
     private static String pageLocator = "//select[@id='ageDay']";
@@ -19,22 +17,18 @@ public class AgeCheckingPage extends BaseSteamPage {
     }
 
     public void setBirthDay() {
-        log.info("Set the day of birth");
         slcDay.selectValueFromDropdown(Header.languageReader.getProperty("birthDay"));
     }
 
     public void setBirthMonth() {
-        log.info("Set the month of birth");
         slcMonth.selectValueFromDropdown(Header.languageReader.getProperty("birthMonth"));
     }
 
     public void setBirthYear() {
-        log.info("Set the year of birth");
         slcYear.selectValueFromDropdown(Header.languageReader.getProperty("birthYear"));
     }
 
     public void clickConfirmButton() {
-        log.info("Confirm age");
         Button btnConfirmAge = new Button(By.xpath(String.format(commonLocatorForConfirmAgeButton, Header.languageReader.getProperty("btnConfirmAge"))), "Confirm age button");
         btnConfirmAge.clickAndWait();
     }

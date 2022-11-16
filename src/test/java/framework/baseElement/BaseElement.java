@@ -17,6 +17,7 @@ public class BaseElement {
     protected By locator;
     protected String nameElement;
     protected WebElement element;
+    protected List<WebElement> webElementList;
     private Browser browser = new Browser();
     private final PropertyReader configReader = new PropertyReader("config.properties");
 
@@ -73,7 +74,8 @@ public class BaseElement {
             log.info("Find an element {}", nameElement);
             element = Browser.driver.findElement(locator);
         } catch (Exception e) {
-            log.error("Element {} is not present",nameElement);
+            log.error("Element {} is not present", nameElement);
+            e.printStackTrace();
         }
         return element.isDisplayed();
     }

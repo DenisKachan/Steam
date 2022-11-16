@@ -8,10 +8,8 @@ public class SteamTest extends BaseTest {
 
     @Test
     public void gameChoosingAndSteamInstallingTest() {
-        Header header = new Header();
-        header.chooseLanguage("English");
-
         MainPage mainPage = new MainPage();
+        mainPage.getHeader().chooseLanguage("English");
         mainPage.navigateMenu("menuItem", "subMenuItem");
 
         GenreActionPage genreActionPage = new GenreActionPage();
@@ -19,7 +17,7 @@ public class SteamTest extends BaseTest {
         genreActionPage.chooseGameWithHighestDiscount();
 
         if (browser.getDriver().getCurrentUrl().contains("/agecheck/")) {
-            AgeCheckingPage ageCheckingPage =new AgeCheckingPage();
+            AgeCheckingPage ageCheckingPage = new AgeCheckingPage();
             ageCheckingPage.setBirthDay();
             ageCheckingPage.setBirthMonth();
             ageCheckingPage.setBirthYear();
@@ -28,8 +26,7 @@ public class SteamTest extends BaseTest {
 
         GamePage gamePage = new GamePage();
         gamePage.checkingGameTitle();
-
-        header.clickInstallSteam();
+        gamePage.getHeader().clickInstallSteam();
 
         DownloadSteamPage downloadSteamPage = new DownloadSteamPage();
         downloadSteamPage.downloadSteam();

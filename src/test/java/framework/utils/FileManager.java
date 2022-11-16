@@ -29,6 +29,6 @@ public class FileManager {
                 .withTimeout(Duration.ofSeconds(Long.parseLong(configReader.getProperty("fileToDownloadWait"))))
                 .pollingEvery(Duration.ofMillis(Long.parseLong(configReader.getProperty("fileToDownloadPolling"))));
         wait.until((webDriver) -> file.canRead());
-        Assert.assertTrue(file.canRead(),"File is not downloaded");
+        Assert.assertTrue(file.canRead(), "File is not downloaded");
     }
 }

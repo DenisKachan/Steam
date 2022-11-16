@@ -4,11 +4,9 @@ import framework.baseElement.Button;
 import framework.baseElement.Label;
 import framework.utils.PropertyReader;
 import lombok.Getter;
-import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
 @Getter
-@Log4j2
 public class Header extends BaseSteamPage {
 
     private static String pageLocator = "//div[@class='logo']";
@@ -23,7 +21,6 @@ public class Header extends BaseSteamPage {
 
     public void chooseLanguage(String language) {
         lblLanguageList.click();
-        log.info("Choose {} language", language);
         Label lblLanguage = new Label(By.xpath(String.format(commonLocatorForLanguage, language)), "Language label");
         if (lblLanguage.elementIsPresent()) {
             lblLanguage.clickAndWait();

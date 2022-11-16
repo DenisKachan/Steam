@@ -1,20 +1,17 @@
 package steam.pages;
 
 import framework.Browser;
-import framework.baseElement.BaseElement;
+import framework.baseElement.BaseElements;
 import framework.baseElement.Button;
 import framework.baseElement.Label;
-import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-@Log4j2
 public class GenreActionPage extends BaseSteamPage {
 
     private Browser browser = new Browser();
@@ -30,13 +27,11 @@ public class GenreActionPage extends BaseSteamPage {
     }
 
     public void chooseCategoryOfOffers(String genreSubItem) {
-        log.info("Choose category of game offers");
         Label lblGenreOffersCategory = new Label(By.xpath(String.format(commonLocatorForGenreOffersCategory, Header.languageReader.getProperty(genreSubItem))), "Category of offers label");
         lblGenreOffersCategory.mouseMoveToElement();
     }
 
     public void chooseGameWithHighestDiscount() {
-        log.info("Choose random game with the highest discount");
         ArrayList<String> tempList = new ArrayList<>();
         List<WebElement> elementList = lblDiscounts.getListOfElements();
         for (WebElement optionElement : elementList) {
@@ -52,11 +47,11 @@ public class GenreActionPage extends BaseSteamPage {
         }
         Random random = new Random();
         int randomIndex = indexesOfMaxDiscounts.get(random.nextInt(indexesOfMaxDiscounts.size()));
-        while (!elementList.get(randomIndex).isDisplayed()) {
+        BaseElements gamesWithDiscounts = new BaseElements(elementList, "All games with discounts");
+        while (!gamesWithDiscounts.elementFromListDisplayed(randomIndex)) {
             btnMoveRight.click();
         }
-        Actions actions = new Actions(Browser.driver);
-        actions.moveToElement(elementList.get(randomIndex)).perform();
+        gamesWithDiscounts.mouseMoveToTheElementFromList(randomIndex);
         randomGameWithTheHighestDiscount = gameTitle.getText();
         gameTitle.clickAndWait();
         browser.switchBrowserWindow(1);
