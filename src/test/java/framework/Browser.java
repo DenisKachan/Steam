@@ -65,4 +65,9 @@ public class Browser {
             log.error("Page is not loaded");
         }
     }
+
+    public void navigateToURL(String url) {
+        log.info("Navigate to {} url", url);
+        Browser.driver.get(configReader.getProperty(url));
+    }
 }

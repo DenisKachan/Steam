@@ -1,8 +1,9 @@
-package steam.pages;
+package steam.pageObjects.pages;
 
 import framework.baseElement.Button;
 import framework.baseElement.Dropdown;
 import org.openqa.selenium.By;
+import steam.pageObjects.baseComponents.Header;
 
 public class AgeCheckingPage extends BaseSteamPage {
 

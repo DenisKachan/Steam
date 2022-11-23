@@ -1,5 +1,6 @@
-package steam.pages;
+package steam.pageObjects.baseComponents;
 
+import framework.BasePage;
 import framework.baseElement.Button;
 import framework.baseElement.Label;
 import framework.utils.PropertyReader;
@@ -7,13 +8,13 @@ import lombok.Getter;
 import org.openqa.selenium.By;
 
 @Getter
-public class Header extends BaseSteamPage {
+public class Header extends BasePage {
 
     private static String pageLocator = "//div[@class='logo']";
     private String commonLocatorForLanguage = "//span[@id='language_pulldown']/following::a[contains(text(),'%s')]";
     private String commonLocatorForInstallSteam = "//div[@id='global_action_menu']/descendant::a[contains(text(),'%s')]";
     private Label lblLanguageList = new Label(By.xpath("//span[@id='language_pulldown']"), "Language list label");
-    protected static PropertyReader languageReader;
+    public static PropertyReader languageReader;
 
     public Header() {
         super(By.xpath(pageLocator), "Header");

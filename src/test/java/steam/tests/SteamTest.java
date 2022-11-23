@@ -2,7 +2,7 @@ package steam.tests;
 
 import framework.BaseTest;
 import org.testng.annotations.Test;
-import steam.pages.*;
+import steam.pageObjects.pages.*;
 
 public class SteamTest extends BaseTest {
 

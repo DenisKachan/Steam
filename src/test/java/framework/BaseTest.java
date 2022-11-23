@@ -17,7 +17,7 @@ public abstract class BaseTest {
         FileManager manager = new FileManager();
         manager.checkAndDeleteFile();
         browser = Browser.getInstance();
-        navigateToURL("baseUrl");
+        browser.navigateToURL("baseUrl");
     }
 
     @AfterMethod
@@ -25,10 +25,5 @@ public abstract class BaseTest {
         if (browser.isBrowserAlive()) {
             browser.exit();
         }
-    }
-
-    public void navigateToURL(String url) {
-        log.info("Navigate to {} url", url);
-        Browser.driver.get(configReader.getProperty(url));
     }
 }

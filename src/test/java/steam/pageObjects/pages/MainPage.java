@@ -1,7 +1,8 @@
-package steam.pages;
+package steam.pageObjects.pages;
 
 import framework.baseElement.Label;
 import org.openqa.selenium.By;
+import steam.pageObjects.baseComponents.Header;
 
 public class MainPage extends BaseSteamPage {
 

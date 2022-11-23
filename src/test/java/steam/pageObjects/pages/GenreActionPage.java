@@ -1,4 +1,4 @@
-package steam.pages;
+package steam.pageObjects.pages;
 
 import framework.Browser;
 import framework.baseElement.BaseElements;
@@ -6,6 +6,7 @@ import framework.baseElement.Button;
 import framework.baseElement.Label;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import steam.pageObjects.baseComponents.Header;
 
 import java.util.ArrayList;
 import java.util.Collections;
